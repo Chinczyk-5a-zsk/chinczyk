@@ -1,0 +1,14 @@
+C:\Users\student\3D Objects\chinczyk\bin\Debug\net8.0\chinczyk.exe
+C:\Users\student\3D Objects\chinczyk\bin\Debug\net8.0\chinczyk.deps.json
+C:\Users\student\3D Objects\chinczyk\bin\Debug\net8.0\chinczyk.runtimeconfig.json
+C:\Users\student\3D Objects\chinczyk\bin\Debug\net8.0\chinczyk.dll
+C:\Users\student\3D Objects\chinczyk\bin\Debug\net8.0\chinczyk.pdb
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.AssemblyInfoInputs.cache
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.AssemblyInfo.cs
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.csproj.CoreCompileInputs.cache
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.dll
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\refint\chinczyk.dll
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.pdb
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\chinczyk.genruntimeconfig.cache
+C:\Users\student\3D Objects\chinczyk\obj\Debug\net8.0\ref\chinczyk.dll
