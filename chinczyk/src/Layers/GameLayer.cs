@@ -29,8 +29,7 @@ class GameLayer : Layer {
             // czwarty parametr to kolor pionka, instrukcja `start[color][i]` sprawdza czy na tym polu jest pionek, jeżeli tak brana jest wartość po znaku zapytania (czyli kolor gracza), jeżeli nie brana jest wartość po dwukropku (czyli null reprezentujący puste pole)
             DisplayField(10 + i % 2, 1 + i / 2, color, start[color][i] ? color : null);
         }
-        // pionek na planszy
-        board[11] = color;
+
 
         // czerowne domki
         for (int i = 0; i < 4; i++)
@@ -80,11 +79,25 @@ class GameLayer : Layer {
 
         // przesunięcie kursora pod planszę
         Console.SetCursorPosition(0, 40);
+        
+    }
 
-        // TODO: napisać kod wypisujący domki (na potrzebu testów można do wybranych pól w zmiennej finish przypisać false - linie 15-18)
+    // sesja gry
+    private void SaveGameState()
+    {
+        using (StreamWriter writer = new StreamWriter("gamestate.txt"))
+        {
+            // writer.WriteLine($"CurrentPlayer: {currentPlayer}"); <- przypisanie gracza
+            writer.WriteLine("Board:");
+            for (int i = 0; i < board.Length; i++)
+            {
+                writer.WriteLine($"{i}:{board[i]}");
+            }
+        }
+
+        // kostka
     }
     
-    public override void HandleInput(Game game) {
         var info = Console.ReadKey();
         game.Removelayer(this);
     }
