@@ -98,6 +98,8 @@ class GameLayer : Layer {
         // kostka
     }
     
+    public override void HandleInput(Game game)
+    {
         var info = Console.ReadKey();
         game.Removelayer(this);
     }
