@@ -30,7 +30,6 @@ class GameLayer : Layer {
             DisplayField(10 + i % 2, 1 + i / 2, color, start[color][i] ? color : null);
         }
         // pionek na planszy
-        board[11] = color;
 
         // czerowne domki
         for (int i = 0; i < 4; i++)
@@ -81,13 +80,74 @@ class GameLayer : Layer {
         // przesunięcie kursora pod planszę
         Console.SetCursorPosition(0, 40);
 
-        // TODO: napisać kod wypisujący domki (na potrzebu testów można do wybranych pól w zmiennej finish przypisać false - linie 15-18)
     }
-    
+
+    //powrót do bazy 
+    private void ReturnToBase(PlayerColor player)
+    {
+        for (int i = 0; i < 4; i++) {
+            if (!start[player][i])
+            {
+                start[player][i] = true;
+                Console.WriteLine("Pionek wrócił do bazy");
+                return;
+            }
+        }
+    }
+
+    private void MovePawn(PlayerColor player, int steps)
+    {
+        for (int i = 0; i < board.Length; i++)
+        {
+            if (board[i] == player)
+            {
+                board[i] = null;
+                int NewPosition = (i + steps) % board.Length;
+                if (NewPosition != null)
+                {
+                    PlayerColor opponent = board[NewPosition];
+                    Console.WriteLine("pionek zbity");
+                    ReturnToBase(opponent);
+                }
+                board[NewPosition] = player;
+                Console.WriteLine("Gracz {player} przesuną się na pole{newposition}");
+                return;
+            }
+        }
+        Console.WriteLine("nie masz pionków na polu");
+    }
+
     public override void HandleInput(Game game) {
         var info = Console.ReadKey();
         game.Removelayer(this);
     }
+
+    private Random dice = new Random();
+    private int diceResult;
+
+    //rzut kostka !!!!
+    private int RollDice()
+    {
+        diceResult = dice.Next(1,7); //1-6 
+        Console.Write($"rzut kostką to : {diceResult}");
+        return diceResult;
+    }
+
+    public void StartTurn(PlayerColor player)
+    {
+        Console.WriteLine("");
+        int Result = RollDice();
+        if (Result == 6)
+        {
+            //wyjście z bazy
+        }
+        else
+        {
+            MovePawn(player, Result);
+        }
+    }
+
+
 
     private void DisplayField(int x, int y, PlayerColor? fieldColor, PlayerColor? pawnColor) {
         if (pawnColor != null) {
