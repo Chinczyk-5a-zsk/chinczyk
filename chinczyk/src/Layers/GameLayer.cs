@@ -29,6 +29,7 @@ class GameLayer : Layer {
             // czwarty parametr to kolor pionka, instrukcja `start[color][i]` sprawdza czy na tym polu jest pionek, jeżeli tak brana jest wartość po znaku zapytania (czyli kolor gracza), jeżeli nie brana jest wartość po dwukropku (czyli null reprezentujący puste pole)
             DisplayField(10 + i % 2, 1 + i / 2, color, start[color][i] ? color : null);
         }
+        // pionek na planszy
 
 
         // czerowne domki
@@ -79,6 +80,42 @@ class GameLayer : Layer {
 
         // przesunięcie kursora pod planszę
         Console.SetCursorPosition(0, 40);
+
+    }
+
+    //powrót do bazy 
+    private void ReturnToBase(PlayerColor player)
+    {
+        for (int i = 0; i < 4; i++) {
+            if (!start[player][i])
+            {
+                start[player][i] = true;
+                Console.WriteLine("Pionek wrócił do bazy");
+                return;
+            }
+        }
+    }
+
+    private void MovePawn(PlayerColor player, int steps)
+    {
+        for (int i = 0; i < board.Length; i++)
+        {
+            if (board[i] == player)
+            {
+                board[i] = null;
+                int NewPosition = (i + steps) % board.Length;
+                if (NewPosition != null)
+                {
+                    PlayerColor opponent = board[NewPosition];
+                    Console.WriteLine("pionek zbity");
+                    ReturnToBase(opponent);
+                }
+                board[NewPosition] = player;
+                Console.WriteLine("Gracz {player} przesuną się na pole{newposition}");
+                return;
+            }
+        }
+        Console.WriteLine("nie masz pionków na polu");
         
     }
 
@@ -97,10 +134,38 @@ class GameLayer : Layer {
 
         // kostka
     }
-    
+
+    public override void HandleInput(Game game) {
         var info = Console.ReadKey();
         game.Removelayer(this);
     }
+
+    private Random dice = new Random();
+    private int diceResult;
+
+    //rzut kostka !!!!
+    private int RollDice()
+    {
+        diceResult = dice.Next(1,7); //1-6 
+        Console.Write($"rzut kostką to : {diceResult}");
+        return diceResult;
+    }
+
+    public void StartTurn(PlayerColor player)
+    {
+        Console.WriteLine("");
+        int Result = RollDice();
+        if (Result == 6)
+        {
+            //wyjście z bazy
+        }
+        else
+        {
+            MovePawn(player, Result);
+        }
+    }
+
+
 
     private void DisplayField(int x, int y, PlayerColor? fieldColor, PlayerColor? pawnColor) {
         if (pawnColor != null) {
