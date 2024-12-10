@@ -31,6 +31,7 @@ class GameLayer : Layer {
         }
         // pionek na planszy
 
+
         // czerowne domki
         for (int i = 0; i < 4; i++)
         {
@@ -115,6 +116,23 @@ class GameLayer : Layer {
             }
         }
         Console.WriteLine("nie masz pionków na polu");
+        
+    }
+
+    // sesja gry
+    private void SaveGameState()
+    {
+        using (StreamWriter writer = new StreamWriter("gamestate.txt"))
+        {
+            // writer.WriteLine($"CurrentPlayer: {currentPlayer}"); <- przypisanie gracza
+            writer.WriteLine("Board:");
+            for (int i = 0; i < board.Length; i++)
+            {
+                writer.WriteLine($"{i}:{board[i]}");
+            }
+        }
+
+        // kostka
     }
 
     public override void HandleInput(Game game) {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\student\\3D Objects\\chinczyk\\chinczyk.csproj": {}
+    "C:\\Users\\student\\3D Objects\\wk\\chinczyk\\chinczyk\\chinczyk.csproj": {}
   },
   "projects": {
-    "C:\\Users\\student\\3D Objects\\chinczyk\\chinczyk.csproj": {
+    "C:\\Users\\student\\3D Objects\\wk\\chinczyk\\chinczyk\\chinczyk.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\student\\3D Objects\\chinczyk\\chinczyk.csproj",
+        "projectUniqueName": "C:\\Users\\student\\3D Objects\\wk\\chinczyk\\chinczyk\\chinczyk.csproj",
         "projectName": "chinczyk",
-        "projectPath": "C:\\Users\\student\\3D Objects\\chinczyk\\chinczyk.csproj",
+        "projectPath": "C:\\Users\\student\\3D Objects\\wk\\chinczyk\\chinczyk\\chinczyk.csproj",
         "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\student\\3D Objects\\chinczyk\\obj\\",
+        "outputPath": "C:\\Users\\student\\3D Objects\\wk\\chinczyk\\chinczyk\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
