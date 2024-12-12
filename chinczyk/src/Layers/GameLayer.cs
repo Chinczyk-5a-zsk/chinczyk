@@ -135,10 +135,66 @@ class GameLayer : Layer {
         // kostka
     }
 
-    public override void HandleInput(Game game) {
-        var info = Console.ReadKey();
+    private void EnterBoard(PlayerColor player)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (start[player][i])
+            { // Sprawdza, czy pionek jest w domku
+                start[player][i] = false; // Usuwa pionek z domku
+                board[GetStartPosition(player)] = player; // Umieszcza pionek na polu startowym
+                Console.WriteLine($"Gracz {player} wprowadził pionek na planszę.");
+                return;
+            }
+        }
+        Console.WriteLine("Brak pionków w domku!");
+    }
+
+    //Ustawianie pozycji pionków , na sztywno przypisanie "Koordynatów pionków na planszy"
+
+    private int GetStartPosition(PlayerColor player)
+    {
+        return player switch
+        {
+            PlayerColor.Red => 0,
+            PlayerColor.Green => 12,
+            PlayerColor.Cyan => 24,
+            PlayerColor.Yellow => 36,
+            _ => throw new ArgumentOutOfRangeException("Nieprawidłowy gracz."),
+        };
+    }
+
+
+        //podstawowe akcje dla pionka narazie bez rotacji kolorów
+    public override void HandleInput(Game game)
+    {
+        int diceRoll = RollDice(); // Rzut kostką
+        Console.WriteLine("Wybierz akcję: (1) Wprowadź pionek na planszę, (2) Przesuń pionek.");
+        var action = Console.ReadKey().KeyChar;
+        Console.WriteLine();
+
+        PlayerColor currentPlayer = PlayerColor.Red; // Na razie ustawiamy gracza "na sztywno"
+
+        if (action == '1')
+        {
+            EnterBoard(currentPlayer);
+        }
+        else if (action == '2')
+        {
+            MovePawn(currentPlayer, diceRoll);
+        }
+        else
+        {
+            Console.WriteLine("Nieprawidłowa akcja!");
+        }
+
         game.Removelayer(this);
     }
+
+//    public override void HandleInput(Game game) {
+//        var info = Console.ReadKey();
+//        game.Removelayer(this);
+ //   }
 
     private Random dice = new Random();
     private int diceResult;
