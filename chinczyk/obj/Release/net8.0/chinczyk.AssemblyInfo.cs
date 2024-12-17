@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("chinczyk")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04fa53a6b6c08ff5fa49f81b0abd1d058b0e3226")]
 [assembly: System.Reflection.AssemblyProductAttribute("chinczyk")]
 [assembly: System.Reflection.AssemblyTitleAttribute("chinczyk")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

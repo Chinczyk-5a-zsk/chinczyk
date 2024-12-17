@@ -164,9 +164,23 @@ class GameLayer : Layer {
         };
     }
 
+    // UStawienie pozycji końcowej pionków
+    private int GetFinishPosition(PlayerColor player)
+    {
 
-        //podstawowe akcje dla pionka narazie bez rotacji kolorów
-    public override void HandleInput(Game game)
+        return player switch
+        {
+            PlayerColor.Red => 47,
+            PlayerColor.Green => 11,
+            PlayerColor.Cyan => 23,
+            PlayerColor.Yellow => 35,
+            _ => throw new ArgumentOutOfRangeException("Nieprawidłowy gracz."),
+        };
+    }
+
+
+//podstawowe akcje dla pionka narazie bez rotacji kolorów
+public override void HandleInput(Game game)
     {
         int diceRoll = RollDice(); // Rzut kostką
         Console.WriteLine("Wybierz akcję: (1) Wprowadź pionek na planszę, (2) Przesuń pionek.");

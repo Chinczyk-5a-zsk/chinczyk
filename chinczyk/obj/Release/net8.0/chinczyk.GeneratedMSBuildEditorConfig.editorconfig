@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = chinczyk
-build_property.ProjectDir = C:\Users\student\3D Objects\chinczyk\
+build_property.ProjectDir = C:\Users\student\3D Objects\chinczyk\chinczyk\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
