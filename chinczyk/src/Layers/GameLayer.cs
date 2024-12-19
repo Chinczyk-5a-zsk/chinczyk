@@ -1,21 +1,24 @@
 class GameLayer : Layer {
     public GameLayer() {
-        // plansza ma 48 pól w pętli
-        board = new PlayerColor?[48];
+        {
+            board = new PlayerColor?[48];
+            start = new Dictionary<PlayerColor, bool[]>
+    {
+        { PlayerColor.Red, new bool[4] { true, true, true, true } },
+        { PlayerColor.Green, new bool[4] { true, true, true, true } },
+        { PlayerColor.Cyan, new bool[4] { true, true, true, true } },
+        { PlayerColor.Yellow, new bool[4] { true, true, true, true } }
+    };
+            finish = new Dictionary<PlayerColor, bool[]>
+    {
+        { PlayerColor.Red, new bool[4] { false, false, false, false } },
+        { PlayerColor.Green, new bool[4] { false, false, false, false } },
+        { PlayerColor.Cyan, new bool[4] { false, false, false, false } },
+        { PlayerColor.Yellow, new bool[4] { false, false, false, false } }
+    };
 
-        // każdy gracz ma 4 pola startowe z pionkami
-        start = [];
-        start[PlayerColor.Red] = [ true, true, true, true ];
-        start[PlayerColor.Green] = [ true, true, true, true ];
-        start[PlayerColor.Cyan] = [ true, true, true, true ];
-        start[PlayerColor.Yellow] = [ true, true, true, true ];
-
-        // każdy gracz ma 4 pola puste pola docelowe
-        finish = [];
-        finish[PlayerColor.Red] = [ false, false, false, false ];
-        finish[PlayerColor.Green] = [ false, false, false, false ];
-        finish[PlayerColor.Cyan] = [ false, false, false, false ];
-        finish[PlayerColor.Yellow] = [ false, false, false, false ];
+            currentPlayer = PlayerColor.Red;
+        }
     }
 
     public override void Display(Game game) {
@@ -102,21 +105,39 @@ class GameLayer : Layer {
         {
             if (board[i] == player)
             {
-                board[i] = null;
-                int NewPosition = (i + steps) % board.Length;
-                if (NewPosition != null)
+                board[i] = null; // Usuń pionek z obecnego pola
+                int newPosition = (i + steps) % board.Length; // Oblicz nową pozycję
+
+                // Sprawdź, czy nowa pozycja to meta
+                if (newPosition == GetFinishPosition(player))
                 {
-                    PlayerColor opponent = board[NewPosition];
-                    Console.WriteLine("pionek zbity");
-                    ReturnToBase(opponent);
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (!finish[player][j])
+                        {
+                            finish[player][j] = true; // Oznacz pionek jako dotarcie do mety
+                            Console.WriteLine($"Gracz {player} dotarł do mety!");
+                            return;
+                        }
+                    }
                 }
-                board[NewPosition] = player;
-                Console.WriteLine("Gracz {player} przesuną się na pole{newposition}");
+
+                // Sprawdź, czy nowa pozycja jest zajęta
+                if (board[newPosition] != null)
+                {
+                    PlayerColor opponent = board[newPosition].Value; // Pobierz przeciwnika
+                    Console.WriteLine($"Gracz {player} zbił pionek gracza {opponent}!");
+                    ReturnToBase(opponent); // Wyślij pionek przeciwnika do bazy
+                }
+
+                // Umieść pionek gracza na nowym polu
+                board[newPosition] = player;
+                Console.WriteLine($"Gracz {player} przesunął pionek na pole {newPosition}.");
                 return;
             }
         }
-        Console.WriteLine("nie masz pionków na polu");
-        
+
+        Console.WriteLine("Nie masz pionków na planszy.");
     }
 
     // sesja gry
@@ -179,15 +200,14 @@ class GameLayer : Layer {
     }
 
 
-//podstawowe akcje dla pionka narazie bez rotacji kolorów
-public override void HandleInput(Game game)
+    //podstawowe akcje dla pionka narazie bez rotacji kolorów
+    public override void HandleInput(Game game)
     {
+        Console.WriteLine($"Tura gracza {currentPlayer}.");
         int diceRoll = RollDice(); // Rzut kostką
         Console.WriteLine("Wybierz akcję: (1) Wprowadź pionek na planszę, (2) Przesuń pionek.");
         var action = Console.ReadKey().KeyChar;
         Console.WriteLine();
-
-        PlayerColor currentPlayer = PlayerColor.Red; // Na razie ustawiamy gracza "na sztywno"
 
         if (action == '1')
         {
@@ -200,15 +220,29 @@ public override void HandleInput(Game game)
         else
         {
             Console.WriteLine("Nieprawidłowa akcja!");
+            return; // Jeśli akcja jest nieprawidłowa, nie przełączamy gracza
         }
 
-        game.Removelayer(this);
+        // Przełącz na kolejnego gracza
+        NextPlayer();
+        game.Removelayer(this); // Usuń aktualną warstwę gry
     }
 
-//    public override void HandleInput(Game game) {
-//        var info = Console.ReadKey();
-//        game.Removelayer(this);
- //   }
+    //Dodanie kolejności graczy.Rotacja według kolorów.
+    private PlayerColor currentPlayer; // Obecny gracz
+    private PlayerColor[] players = { PlayerColor.Red, PlayerColor.Green, PlayerColor.Cyan, PlayerColor.Yellow }; // Kolejność graczy
+
+    private void NextPlayer()
+    {
+        int currentIndex = Array.IndexOf(players, currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Length]; // Rotacja graczy
+    }
+
+
+    //    public override void HandleInput(Game game) {
+    //        var info = Console.ReadKey();
+    //        game.Removelayer(this);
+    //   }
 
     private Random dice = new Random();
     private int diceResult;
